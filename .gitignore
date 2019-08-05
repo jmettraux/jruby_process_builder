@@ -1,0 +1,17 @@
+
+#.ruby-version
+#.rspec
+.rspec.out
+.errors
+.bxsinfo.yaml
+#.bxsenvs.yaml
+
+*.swp
+
+.vimrc
+.viminfo
+.vimgrep
+#.vimshorts
+.vimmarks
+.vimspec
+
