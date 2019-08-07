@@ -3,14 +3,34 @@ require 'pp'
 require 'java'
 
 
-def jruby_spawn
+def jruby_spawn(conf, data)
 
-  builder = java.lang.ProcessBuilder.new('ps', 'aux')
-#pp builder.environment
+p conf['cmd']
+  builder = java.lang.ProcessBuilder.new(conf['cmd'])
+  #pp builder.environment
   process = builder.start
+
+  #OutputStream stdin = process.getOutputStream();
+  #InputStream stdout = process.getInputStream();
+  w = process.outputStream
+  ww = java.io.BufferedWriter.new(java.io.OutputStreamWriter.new(w))
+  ww.write(data)
+  ww.flush
+  ww.close
+
+  r = process.inputStream
+  rr = java.io.BufferedReader.new(java.io.InputStreamReader.new(r))
+  p rr.readLine
+
+  status = process.waitFor
+  p status
 end
 
-jruby_spawn()
+jruby_spawn(
+  {
+    'cmd' => 'rev',
+  },
+  'some text')
 
 ### the target:
 
